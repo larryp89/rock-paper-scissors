@@ -1,5 +1,5 @@
-player_score = 0;
-computer_score = 0;
+let player_score = 0;
+let computer_score = 0;
 
 function getComputerChoice() {
   // Generate a random computer move
