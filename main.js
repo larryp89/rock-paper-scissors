@@ -1,57 +1,51 @@
-let player_score = 0;
-let computer_score = 0;
+let computer_choice;
+let player_score = 0
+let computer_score = 0
 
-function getComputerChoice() {
-  let random_choice = Math.floor(Math.random() * 3) + 1;
-  if (random_choice === 1) {
-    return "rock";
-  } else if (random_choice === 2) {
-    return "paper";
-  } else {
-    return "scissors";
+function gen_rand_int() {
+  let rand_int = Math.floor(Math.random() * 3);
+  return rand_int
+} 
+
+function gen_comp_choice(){
+  num = gen_rand_int()
+  if(num == 0){
+    return "rock"
+  }
+  else if (num == 1){
+    return "paper"
+  }
+  else {
+    return "scissors"
   }
 }
 
-function compareChoice(playerSelection, computerSelection) {
-  if (
-    (playerSelection === "rock" && computerSelection === "scissors") ||
-    (playerSelection === "paper" && computerSelection === "rock") ||
-    (playerSelection === "scissors" && computerSelection === "paper")
-  ) {
-    player_score += 1;
-    return `You win - ${playerSelection} beats ${computerSelection}.`;
-  } else if (playerSelection === computerSelection) {
-    return `You both chose ${playerSelection} - it's a tie.`;
-  } else {
-    computer_score += 1;
-    return `You lost - computer chose ${computerSelection} and you played ${playerSelection}.`;
+function play_round(comp_choice, user_choice){
+  if(comp_choice == user_choice){
+    return "It's a tie"
+  }
+  if(comp_choice == "scissors" & user_choice == "rock" || comp_choice == "paper" & user_choice == "scissors" || comp_choice == "rock" & user_choice == "paper"){
+    player_score ++
+    return "Player wins"
+  }
+  else{
+    computer_score++
+    return "Computer wins"
   }
 }
 
-function playRound(buttonPress) {
-  const body = document.querySelector("body");
-  let computerSelection = getComputerChoice();
-  let roundOutcome = compareChoice(buttonPress, computerSelection);
-  const div = document.createElement("div");
-  div.textContent = ` ${roundOutcome} Current score: ${player_score}:${computer_score}`;
-  body.appendChild(div);
-  if (player_score === 5 && computer_score < 5) {
-    div.textContent = `You won. Final score ${player_score}:${computer_score} Take a bow son!`;
-  } else if (computer_score === 5 && player_score < 5) {
-    div.textContent = `Wipe yourself off. You deeeead. Final score ${player_score}:${computer_score}`;
-  }
+while(player_score <5 & computer_score <5 ){
+  computer_choice = gen_comp_choice()
+  user_choice = prompt("Select 'Rock', 'Paper', or 'Scissors'").toLowerCase()
+  console.log(`Computer chose ${computer_choice}, player chose ${user_choice}`)
+  console.log(play_round(computer_choice, user_choice))
+  console.log(`Player score ${player_score} - ${computer_score} Computer Score`)
 }
 
-let rockButton = document.querySelector("#rock");
-let paperButton = document.querySelector("#paper");
-let scissorsButton = document.querySelector("#scissors");
-
-rockButton.addEventListener("click", function () {
-  playRound("rock");
-});
-paperButton.addEventListener("click", function () {
-  playRound("paper");
-});
-scissorsButton.addEventListener("click", function () {
-  playRound("scissors");
-});
+if (player_score > computer_score){
+  console.log("Player wins!")
+}
+else{
+  console.log("Compski wins!")
+}
+console.log("We done here.")
