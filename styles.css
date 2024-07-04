@@ -1,0 +1,74 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.game-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #ffcb05;
+    text-shadow: 2px 2px #3c5aa6;
+}
+
+.battle-scene {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.player, .computer {
+    text-align: center;
+}
+
+.player img, .computer img {
+    width: 200px;
+    height: auto;
+}
+
+.score {
+    font-size: 1.2em;
+    margin-top: 10px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.move-btn {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #3c5aa6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.move-btn:hover {
+    background-color: #2a3f75;
+}
+
+.result {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+body {
+    background-image: url("dynamax-battle.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

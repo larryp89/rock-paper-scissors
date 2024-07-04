@@ -1,51 +1,61 @@
-let computer_choice;
-let player_score = 0
-let computer_score = 0
+let playerScore = 0;
+let computerScore = 0;
+const maxScore = 5;
 
-function gen_rand_int() {
-  let rand_int = Math.floor(Math.random() * 3);
-  return rand_int
-} 
+const rockBtn = document.getElementById('rock');
+const paperBtn = document.getElementById('paper');
+const scissorsBtn = document.getElementById('scissors');
+const resultDiv = document.getElementById('result');
+const playerScoreSpan = document.getElementById('player-score');
+const computerScoreSpan = document.getElementById('computer-score');
 
-function gen_comp_choice(){
-  num = gen_rand_int()
-  if(num == 0){
-    return "rock"
-  }
-  else if (num == 1){
-    return "paper"
-  }
-  else {
-    return "scissors"
-  }
+function computerPlay() {
+    const choices = ['rock', 'paper', 'scissors'];
+    return choices[Math.floor(Math.random() * choices.length)];
 }
 
-function play_round(comp_choice, user_choice){
-  if(comp_choice == user_choice){
-    return "It's a tie"
-  }
-  if(comp_choice == "scissors" & user_choice == "rock" || comp_choice == "paper" & user_choice == "scissors" || comp_choice == "rock" & user_choice == "paper"){
-    player_score ++
-    return "Player wins"
-  }
-  else{
-    computer_score++
-    return "Computer wins"
-  }
+function playRound(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+        return "It's a tie!";
+    }
+    if (
+        (playerSelection === 'rock' && computerSelection === 'scissors') ||
+        (playerSelection === 'paper' && computerSelection === 'rock') ||
+        (playerSelection === 'scissors' && computerSelection === 'paper')
+    ) {
+        playerScore++;
+        playerScoreSpan.textContent = playerScore;
+        return "You win!";
+    } else {
+        computerScore++;
+        computerScoreSpan.textContent = computerScore;
+        return "Team Rocket wins!";
+    }
 }
 
-while(player_score <5 & computer_score <5 ){
-  computer_choice = gen_comp_choice()
-  user_choice = prompt("Select 'Rock', 'Paper', or 'Scissors'").toLowerCase()
-  console.log(`Computer chose ${computer_choice}, player chose ${user_choice}`)
-  console.log(play_round(computer_choice, user_choice))
-  console.log(`Player score ${player_score} - ${computer_score} Computer Score`)
+function checkGameOver() {
+    if (playerScore === maxScore) {
+        resultDiv.textContent = "You defeated Team Rocket!";
+        disableButtons();
+    } else if (computerScore === maxScore) {
+        resultDiv.textContent = "Team Rocket has won the battle!";
+        disableButtons();
+    }
 }
 
-if (player_score > computer_score){
-  console.log("Player wins!")
+function disableButtons() {
+    rockBtn.disabled = true;
+    paperBtn.disabled = true;
+    scissorsBtn.disabled = true;
 }
-else{
-  console.log("Compski wins!")
+
+function handleClick(playerSelection) {
+    const computerSelection = computerPlay();
+    const result = playRound(playerSelection, computerSelection);
+    resultDiv.textContent = `You chose ${playerSelection}. Team Rocket chose ${computerSelection}. ${result}`;
+    checkGameOver();
 }
-console.log("We done here.")
+
+rockBtn.addEventListener('click', () => handleClick('rock'));
+paperBtn.addEventListener('click', () => handleClick('paper'));
+scissorsBtn.addEventListener('click', () => handleClick('scissors'));
